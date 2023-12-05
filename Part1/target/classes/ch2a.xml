@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Injecting a primitive value (int, boolean, double, etc) and String -->
+
+    <!-- Two method for injecting -->
+    <!-- (1) Injection use setter / preset -->
+    <!-- (2) Injection use constructor -->
+
+    <bean id="triangle" class="com.project.entity.Triangle">
+        <!-- injecting use setter / preset -->
+        <!-- * remember to make empty constructor, if not, object can't be initialize  -->
+        <property name="name" value="myTriangle"/>
+        <!-- alternative -->
+        <property name="type">
+            <value>equilateral</value>
+        </property>
+        <property name="size" value="10"/> <!-- in centimeters -->
+    </bean>
+
+    <!-- Injecting use constructor will look the number of arguments -->
+    <bean id="circle" class="com.project.entity.Circle">
+        <!-- injecting use constructor -->
+        <constructor-arg value="myCircle"/>
+        <constructor-arg value="oval"/>
+        <constructor-arg value="5"/>
+        <!-- inject to new Circle(String name, String type, int radius)-->
+    </bean>
+    <!-- What if we want to injecting args into constructor which have two construction with the same number of arguments ? -->
+    <!-- Goal : inject to new Circle(String name, int radius)-->
+    <bean id="circle1" class="com.project.entity.Circle">
+        <!-- injecting use constructor -->
+        <constructor-arg value="myCircle"/>
+        <constructor-arg value="10"/>
+        <!-- inject to new Circle(String name, String type) -->
+        <!-- PROBLEM : will injecting to the first two parameter constructor -->
+    </bean>
+    <!-- ANSWER : need specify by type for specific injection -->
+    <bean id="circle2" class="com.project.entity.Circle">
+        <!-- injecting use constructor -->
+        <constructor-arg type="java.lang.String" value="myCircle"/>
+        <constructor-arg type="int" value="10"/>
+        <!-- inject to new Circle(String name, int radius) -->
+        <!-- SOLVE   : will injecting to the two parameter constructor with String and int type -->
+    </bean>
+    <!-- ALTERNATIVE : need specify by name for specific injection -->
+    <bean id="circle3" class="com.project.entity.Circle">
+        <constructor-arg name="name" value="myCircle" />
+        <constructor-arg name="radius" value="10" />
+    </bean>
+
+    <!-- Spring assume every injection a value are String -->
+    <bean id="circle4" class="com.project.entity.Circle">
+        <constructor-arg value="10"/>
+        <!-- inject to new Circle(int radius) -->
+        <!-- * automatically convert type of arguments, from String (number) to int -->
+
+        <!-- <constructor-arg value="myCircle" /> -->
+        <!-- inject to new Circle(int radius) -->
+        <!-- * can't automatically convert type of arguments, from String (not a number) to int -->
+        <!-- occur an ERROR ! (ambiguous type of arguments) -->
+    </bean>
+    <bean id="circle5" class="com.project.entity.Circle">
+        <!-- by default injecting use constructor in order (left to right) -->
+        <constructor-arg index="1" value="oval"/>       <!-- first  args -->
+        <constructor-arg index="0" value="myCircle"/>   <!-- second args -->
+        <constructor-arg value="5"/>                    <!-- third  args -->
+        <!-- What if we want injection use constructor not in order ? -->
+        <!-- USE INDEXES for reorder -->                <!-- first  -> second -->
+                                                        <!-- second -> first  -->
+    </bean>
+
+</beans>

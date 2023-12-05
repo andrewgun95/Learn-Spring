@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="triangle1" class="com.project.entity.Triangle" autowire="byName">
+        <property name="name" value="myTriangle"/>
+        <property name="type" value="equilateral"/>
+        <property name="size" value="10"/>
+        <!-- dependency pointA, pointB, pointC are inject automatically -->
+    </bean>
+
+
+    <!-- Even all triangle1 dependencies have scopes are prototype.
+    These are dependencies will follow scope triangle1 which is by default singleton -->
+    <bean id="pointA" class="com.project.entity.Point" scope="prototype">
+        <property name="x" value="0"/>
+        <property name="y" value="0"/>
+    </bean>
+    <bean id="pointB" class="com.project.entity.Point" scope="prototype">
+        <property name="x" value="20"/>
+        <property name="y" value="0"/>
+    </bean>
+    <bean id="pointC" class="com.project.entity.Point" scope="prototype">
+        <property name="x" value="10"/>
+        <property name="y" value="20"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="order1" class="com.project.entity.Order">
+        <property name="id" value="ORD001"/>
+        <property name="date" value="28/9/2018"/>
+        <property name="totalAmount" value="170000"/>
+        <!-- customer and product dependencies will automatically wiring -->
+    </bean>
+
+    <bean id="customer1" class="com.project.entity.Customer">
+        <property name="name" value="Andrew"/>
+        <property name="city" value="New York City"/>
+        <property name="country" value="America"/>
+        <property name="phone" value="089665418342" />
+    </bean>
+
+    <bean id="customer2" class="com.project.entity.Customer">
+        <qualifier value="orderRelated"/>
+        <property name="name" value="Matt"/>
+        <property name="city" value="New Delhi"/>
+        <property name="country" value="India"/>
+        <property name="phone" value="08964515479" />
+    </bean>
+
+    <bean id="product" class="com.project.entity.Product">
+        <property name="name" value="Speaker"/>
+        <property name="price" value="150000" />
+        <property name="stock" value="25" />
+    </bean>
+
+    <bean id="product2" class="com.project.entity.Product">
+        <property name="name" value="Headset"/>
+        <property name="price" value="35000" />
+        <property name="stock" value="30" />
+    </bean>
+
+    <!-- register all annotation -->
+    <context:annotation-config/>
+</beans>

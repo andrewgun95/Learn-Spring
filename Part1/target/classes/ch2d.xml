@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Injecting null and empty string values -->
+
+    <bean id="employee1" class="com.project.entity.Employee">
+        <property name="id" value="EMP001"/>
+        <property name="name" value="andrew"/>
+        <property name="phone" value=""/>
+        <property name="email"><null/></property>
+    </bean>
+
+</beans>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Injecting an object : -->
+    <!-- (1) using reference to the other bean -->
+    <!-- * reference used when bean declaration maybe used later by others bean -->
+
+    <!-- (2) using inner bean -->
+    <!-- * inner bean used when bean declaration only reference to specific bean -->
+    <!-- * not reference to the others bean -->
+
+    <!-- Two method for injecting -->
+    <!-- (1) Injection use setter / preset -->
+    <!-- (2) Injection use constructor -->
+
+    <!-- What is id for ? -->
+    <!-- id for referencing -->
+
+    <!-- ONE LEVEL REFERENCING -->
+    <bean id="family1" class="com.project.entity.Family" name="familyKu"> <!-- give alias on bean definition -->
+        <!-- constructor injection -->
+        <constructor-arg>
+            <!-- person only used specific -->
+            <!-- inner bean declaration -->
+            <bean class="com.project.entity.Person"> <!-- inner bean don't need an id -->
+                <property name="name" value="Jacob"/>
+                <property name="age" value="31"/>
+                <property name="gender" value="male"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg>
+            <!-- inner bean declaration -->
+            <bean class="com.project.entity.Person">
+                <property name="name" value="Emilia"/>
+                <property name="age" value="28"/>
+                <property name="gender" value="female"/>
+            </bean>
+        </constructor-arg>
+        <!-- setter injection -->
+        <!-- region maybe used by others family -->
+        <property name="region" ref="bdgRegion"/> <!-- reference to bean with alias bdgRegion -->
+    </bean>
+
+    <!-- ALIAS -->
+    <!-- * give another name to the same bean, so referencing can be direct into the id or the alias name -->
+    <!-- GOOD PRACTICE : use reference only for id (have validation), not for aliases -->
+
+    <!-- bean with id family1 can be called using an alias myFamily-->
+    <alias name="family1" alias="myFamily"/>
+
+    <!--<bean id="person1" class="com.project.entity.Person">-->
+        <!--<property name="name" value="Jacob"/>-->
+        <!--<property name="age" value="31"/>-->
+        <!--<property name="gender" value="male"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="person2" class="com.project.entity.Person">-->
+        <!--<property name="name" value="Emilia"/>-->
+        <!--<property name="age" value="28"/>-->
+        <!--<property name="gender" value="female"/>-->
+    <!--</bean>-->
+
+    <bean id="region1" class="com.project.entity.Region">
+        <property name="id" value="REG001"/>
+        <property name="name" value="Bandung"/>
+    </bean>
+
+    <!-- bean with id region1 can be called using an alias bdgRegion-->
+    <alias name="region1" alias="bdgRegion"/>
+
+    <!-- MORE THAN ONE LEVEL REFERENCING -->
+    <bean id="train" class="com.project.entity.Cart">
+        <property name="id" value="C001"/>
+        <property name="amount" value="1"/>
+        <property name="next" ref="cart2"/>
+    </bean>
+
+    <bean id="cart2" class="com.project.entity.Cart">
+        <property name="id" value="C002"/>
+        <property name="amount" value="5"/>
+        <property name="next" ref="cart3"/>
+    </bean>
+
+    <bean id="cart3" class="com.project.entity.Cart">
+        <property name="id" value="C003"/>
+        <property name="amount" value="13"/>
+    </bean>
+
+</beans>

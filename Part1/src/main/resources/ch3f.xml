@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- for each post processor class definition must register inside xml configuration -->
+    <bean class="com.project.learn.CH3f_MyBeanFactoryPostProcessor"/>
+
+    <!-- MY BEAN FACTORY POST PROCESSOR -->
+    <!-- * when bean factory processor executed, will print out a message -->
+
+    <!-- PROPERTY PLACES CONFIGURER : out-of-box solution provided by Spring -->
+    <!-- * when bean factory processor executed, spring will look for all file properties,
+         and create place holder based of that -->
+
+    <!-- register property placeholder configurer -->
+    <!-- * PropertyPlaceholderConfigurer is inherit from PropertyResourceConfigurer
+           which is implemented class of BeanFactoryPostProcessor  -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations" value="login.properties"/> <!-- same as path in .xml file -->
+        <!-- to specify a classpath location, just add classpath: at the beginning value location -->
+        <!-- * used classpath = classpath:login.properties -->
+    </bean>
+
+    <bean id="account1" class="com.project.entity.Account">
+        <!-- adding property using place holder from file properties -->
+        <!-- * used place holder = ${name_properties} -->
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+
+</beans>

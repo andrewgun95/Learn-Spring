@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"> <!-- bean definitions here -->
+
+
+    <bean id="speak" class="com.project.entity.Speak">
+        <property name="text">
+            <list>
+                <value>Boys gossip more than girls do</value>
+                <value>Why you should never take on a food challenge</value>
+                <value>Why men shouldn’t wear skinny jeans</value>
+                <value>The most dangerous animal out there is a silent woman.</value>
+                <null/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="random" class="java.util.Random" />
+
+    <bean id="robot" class="com.project.entity.Robot">
+        <property name="id" value="#{'00' + (1 + random.nextInt(9))}"/>
+        <!-- #{object.property1?.property2} -->
+        <!-- ? sign mean if property1 is null, return property1 and will not access property2 -->
+        <property name="say" value="#{speak.getRandomText() + ', length : ' + speak.randomText?.length()}"/>
+        <!-- alternative, shortcut called by the name of properties -->
+        <!--<property name="say" value="#{speak1.randomText}" />-->
+    </bean>
+
+    <context:annotation-config />
+
+</beans>

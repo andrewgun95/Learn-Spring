@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-init-method="init"
+       default-destroy-method="destroy"> <!-- adding init-method and destroy-method globally -->
+
+    <!-- (1) Implementing InitializingBean and DisposableBean interface -->
+
+    <!-- by default when bean definition not injecting any properties, all properties will become to null -->
+    <bean id="employee1" class="com.project.entity.Employee"/>
+
+    <bean class="com.project.service.CH3d_EmployeeService1">
+        <property name="employee" ref="employee1"/>
+    </bean>
+
+    <!-- (2) Providing init-method and destroy-method attribute values -->
+
+    <bean id="employee2" class="com.project.entity.Employee"/>
+
+    <!-- How to initialize init-method and destroy-method attributes ? -->
+    <!-- * init-method    = "name_method" -->
+    <!-- * destroy-method = "name_method" -->
+    <bean class="com.project.service.CH3d_EmployeeService2" init-method="init" destroy-method="destroy">
+        <property name="employee" ref="employee2"/>
+    </bean>
+
+    <!-- (3) Adding @PostConstruct and @PreDestroy annotation -->
+
+    <bean id="employee3" class="com.project.entity.Employee"/>
+
+    <bean class="com.project.service.CH3d_EmployeeService3">
+        <property name="employee" ref="employee3"/>
+    </bean>
+
+    <!-- when working with annotation, we must tell spring to look for annotation -->
+    <context:annotation-config/>
+    <!-- to use context tag, we must add name space "context" -->
+
+    <!-- What the order, when we implement all implementation of post-init for single bean ? -->
+    <bean id="employee4" class="com.project.entity.Employee"/>
+
+    <bean class="com.project.service.CH3d_EmployeeService4">
+        <property name="employee" ref="employee4"/>
+    </bean>
+
+    <!-- PostConstruct -> Initializing Bean -> custom init -->
+    <!-- * execute Post Construct init method run in BeanPostProcessor before Initialization -->
+    <!-- see : org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor -->
+</beans>

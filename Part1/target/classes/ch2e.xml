@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- AUTO WIRE (AUTO REFERENCING) -->
+    <!-- feature by Spring, to help skip referencing configuration (guessing what the reference) -->
+    <!-- by default auto wire is off -->
+
+    <!-- (1) byName -->
+    <!-- * auto wiring by search name matching between the name property in class definition and with the bean configuration -->
+    <!-- (2) byType -->
+    <!-- * auto wiring by search type matching between the type property in class definition and with the bean configuration -->
+    <!-- * only work when EACH PROPERTY HAVE DIFFERENT TYPE -->
+    <!-- (3) constructor -->
+    <!-- * auto wiring by search type matching, if returning match more than single bean,
+           will matching between the name property, in class definition and with the bean configuration -->
+
+    <!-- WITHOUT AUTO WIRE -->
+    <!--<bean id="myFamily" class="com.project.entity.Family">-->
+    <!-- referencing configuration -->
+    <!--<property name="husband" ref="person1" />-->
+    <!--<property name="wife" ref="person2" />-->
+    <!--</bean>-->
+
+    <!-- WITH AUTO WIRE -->
+    <!-- (1) byName -->
+    <bean id="myFamily" class="com.project.entity.Family" autowire="byName"/>
+
+    <bean id="person1" class="com.project.entity.Person">
+        <property name="name" value="Jacob"/>
+        <property name="age" value="35"/>
+        <property name="gender" value="male"/>
+    </bean>
+    <alias name="person1" alias="husband"/>
+
+    <bean id="person2" class="com.project.entity.Person">
+        <property name="name" value="Sarah"/>
+        <property name="age" value="31"/>
+        <property name="gender" value="female"/>
+    </bean>
+    <alias name="person2" alias="wife"/>
+
+    <bean id="region1" class="com.project.entity.Region">
+        <property name="id" value="REG001"/>
+        <property name="name" value="Bandung"/>
+    </bean>
+    <alias name="region1" alias="region"/>
+
+    <!-- (2) byType -->
+    <bean id="employee1" class="com.project.entity.Employee" autowire="byType"> <!-- can be replace by constructor -->
+        <property name="id" value="EMP002"/>
+        <property name="name" value="Andrew"/>
+        <property name="phone" value="089512809831"/>
+        <property name="email" value="andreasgunawan95@gmail.com"/>
+    </bean>
+    <bean id="manager1" class="com.project.entity.Employee">
+        <property name="id" value="EMP001"/>
+        <property name="name" value="Jacob"/>
+        <property name="phone" value=""/>
+        <property name="email" value=""/>
+    </bean>
+    <bean id="department1" class="com.project.entity.Department">
+        <property name="id" value="DEP001"/>
+        <property name="name" value="Software Development"/>
+        <property name="location" value="Jakarta"/>
+    </bean>
+    <bean id="job1" class="com.project.entity.Job">
+        <property name="id" value="JOB001"/>
+        <property name="title" value="Java Developer"/>
+        <property name="minSalary" value="3000000"/>
+        <property name="maxSalary" value="6000000"/>
+    </bean>
+
+    <!-- (3) constructor -->
+    <bean id="family1" class="com.project.entity.Family" autowire="constructor"/>
+
+    <!-- * When there is something wrong working with auto wire -->
+    <!-- * when : not match constructor, not match name property, not match type property, etc -->
+    <!-- * auto wire will set to off (auto wire will not perform) -->
+    <!-- * when : match more than single bean -->
+    <!-- * auto wire will return an error -->
+
+    <!-- PROBLEM : when something wrong HARD TO RECOGNIZE -->
+
+</beans>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init">
+
+    <bean id="family1" class="com.project.entity.Family">
+        <property name="husband" ref="person1"/>
+        <property name="wife" ref="person2"/>
+    </bean>
+
+    <bean id="person1" class="com.project.entity.Person">
+        <property name="name" value="Jacob"/>
+        <property name="age" value="27"/>
+        <property name="gender" value="male"/>
+    </bean>
+
+    <bean id="person2" class="com.project.entity.Person">
+        <property name="name" value="Sarah"/>
+        <property name="age" value="24"/>
+        <property name="gender" value="female"/>
+    </bean>
+
+    <!-- for each post processor class definition must register inside xml configuration -->
+    <bean class="com.project.learn.CH3e_DisplayNameBeanPostProcessor"/>
+
+</beans>

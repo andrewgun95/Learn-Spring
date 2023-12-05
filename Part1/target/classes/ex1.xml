@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init">
+
+    <!-- EXERCISE -->
+    <!-- register bean post processor -->
+    <bean class="com.project.service.EX1_TransactionService">
+        <property name="transaction" ref="transaction1"/>
+    </bean>
+
+    <bean id="transaction1" class="com.project.exercise.Transaction">
+        <property name="item" ref="item1"/>
+        <property name="status" value="unpaid"/>
+    </bean>
+
+    <bean id="item1" class="com.project.exercise.Item">
+        <property name="name" value="Speaker"/>
+        <property name="price" value="98000"/>
+        <property name="qty" value="1"/>
+    </bean>
+
+    <bean id="payment1" class="com.project.exercise.CardPayment" scope="prototype" init-method="init">
+        <property name="nominal" value="750000"/>
+        <property name="limit" value="2000000"/>
+    </bean>
+
+    <bean id="payment2" class="com.project.exercise.CashPayment" scope="prototype" init-method="init">
+        <property name="nominal" value="150000"/>
+    </bean>
+
+</beans>

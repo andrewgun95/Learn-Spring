@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"> <!-- bean definitions here -->
+
+    <bean id="logger" class="com.project.learn.CH4g_AutowiredQualifierChild.Logger">
+        <!-- all dependencies will automatically auto wired -->
+    </bean>
+
+    <bean id="xxx" class="com.project.logger.ConsoleWriter"> <!-- implementation of LogWriter -->
+        <qualifier value="file"/>
+    </bean>
+    <bean id="yyy" class="com.project.logger.FileWriter">  <!-- implementation of LogWriter -->
+        <qualifier value="console"/>
+    </bean>
+
+    <!-- configuration all beans based on annotations -->
+    <context:annotation-config />
+
+</beans>

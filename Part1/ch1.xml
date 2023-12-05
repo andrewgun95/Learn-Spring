@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- This XML file is about to create all preparation for blueprints of beans object -->
+
+    <!-- bean object without injecting any values -->
+    <bean id="circle" class="com.project.entity.Circle"/>
+
+    <!-- bean object with injecting a value -->
+    <bean id="triangle" class="com.project.entity.Triangle">
+        <!-- injecting a value "equilateral" to type property -->
+        <!-- ACTUAL : this config make creating bean object called setType("equilateral") automatically -->
+        <property name="type" value="equilateral"/>
+    </bean>
+
+</beans>

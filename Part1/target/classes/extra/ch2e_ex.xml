@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byType" default-autowire-candidates="*reg*,*city*,*place*">
+
+    <bean id="family1" class="com.project.entity.Family">
+        <property name="husband" ref="person1" />
+        <property name="wife" ref="person2" />
+    </bean>
+
+    <bean id="person1" class="com.project.entity.Person">
+        <property name="name" value="Bob"/>
+        <property name="age" value="28"/>
+        <property name="gender" value="male"/>
+    </bean>
+
+    <bean id="person2" class="com.project.entity.Person">
+        <property name="name" value="Sarah"/>
+        <property name="age" value="27"/>
+        <property name="gender" value="female"/>
+    </bean>
+
+    <!-- this bean will auto wire, cause it is primary ! -->
+    <bean id="my_place" class="com.project.entity.Region" primary="true">
+        <property name="id" value="reg001"/>
+        <property name="name" value="Sydney"/>
+    </bean>
+
+    <!-- this bean will ignored by default auto wire-->
+    <bean id="my_city" class="com.project.entity.Region" autowire-candidate="false">
+        <property name="id" value="reg002"/>
+        <property name="name" value="Jakarta"/>
+    </bean>
+
+    <bean id="my_region" class="com.project.entity.Region">
+        <property name="id" value="reg003"/>
+        <property name="name" value="Tokyo"/>
+    </bean>
+
+    <bean id="point" class="com.project.entity.Region">
+        <property name="id" value="reg001"/>
+        <property name="name" value="Sydney"/>
+    </bean>
+
+</beans>

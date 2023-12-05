@@ -1,0 +1,8 @@
+com\project\learn\CH6a_IntroSpEL.class
+com\project\entity\Speak.class
+com\project\databases\SQLConnector.class
+com\project\learn\CH6b_SpELwithAnnotations.class
+com\project\model\Offer.class
+com\project\entity\Robot.class
+com\project\learn\CH7a_IntroDatabase.class
+com\project\model\OffersDAO.class

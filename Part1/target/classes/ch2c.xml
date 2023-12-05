@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- What we have already done ? -->
+    <!-- Injecting a value of primitive data type -->
+    <!-- Injecting an object by reference or inner object-->
+
+    <!-- All about deal with passing singular value or object to a bean -->
+
+    <!-- What if we want to pass plural (more than one) values or objects ? -->
+    <!-- Spring offers four type of collection -->
+    <!-- (1) List  -->
+    <!-- (2) Set   -->
+    <!-- (3) Map   -->
+    <!-- (4) Props -->
+
+    <!-- Spring collection can pass (a) by values, (b) by objects, or (c) by values and objects (combined) -->
+
+    <!-- LIST -->
+    <!-- helps in injecting a list of values or objects - *ALLOWED DUPLICATES* -->
+
+    <!-- (a) Pass by values -->
+    <bean id="phonebook1" class="com.project.entity.PhoneBook">
+        <property name="phones">
+            <list>
+                <value>089655454395</value>
+                <value>089512809831</value>
+                <value>082155466784</value>
+                <value>089655454395</value> <!-- duplicate ! -->
+            </list>
+        </property>
+    </bean>
+
+    <!-- (b) Pass by objects -->
+    <bean id="team1" class="com.project.entity.Team">
+        <property name="member">
+            <list>
+                <!-- using reference -->
+                <ref bean="coach1"/>
+                <!-- using inner bean -->
+                <bean class="com.project.entity.Person">
+                    <property name="name" value="Tony"/>
+                    <property name="age" value="23"/>
+                    <property name="gender" value="male"/>
+                </bean>
+                <bean class="com.project.entity.Person">
+                    <property name="name" value="Jacob"/>
+                    <property name="age" value="24"/>
+                    <property name="gender" value="male"/>
+                </bean>
+                <bean class="com.project.entity.Person">
+                    <property name="name" value="Matt"/>
+                    <property name="age" value="27"/>
+                    <property name="gender" value="male"/>
+                </bean>
+                <!-- etc... -->
+            </list>
+        </property>
+    </bean>
+
+    <bean id="coach1" class="com.project.entity.Person">
+        <property name="name" value="Jose"/>
+        <property name="age" value="56"/>
+        <property name="gender" value="male"/>
+    </bean>
+
+    <!-- (c) Pass by values and objects -->
+    <!-- * need to specify java.util.List not specify for a given type -->
+    <bean id="team2" class="com.project.entity.Team">
+        <property name="member">
+            <list>
+                <ref bean="coach1"/>
+                <!-- all the same adult is 15 and gender is male -->
+                <value>Steve</value>
+                <value>Martin</value>
+                <value>Smith</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Set -->
+    <!-- helps in injecting a set of values or objects, not *ALLOWED DUPLICATES* -->
+
+    <bean id="phonebook2" class="com.project.entity.PhoneBook">
+        <property name="phones">
+            <set>
+                <value>089655454395</value>
+                <value>089512809831</value>
+                <value>082155466784</value>
+                <value>089655454395</value> <!-- duplicate ! -->
+            </set>
+        </property>
+    </bean>
+
+    <!-- List and Set only can be used for implementation of property an array or property which are inherit from java.util.Collection, ex : List, HashSet -->
+
+    <!-- Map -->
+    <!-- helps in injecting a name-value of pairs where the name and value can be any type -->
+    <bean id="places1" class="com.project.entity.Places">
+        <property name="points">
+            <map>
+                <entry key="102" value="China"/>
+                <!-- reference to bean object -->
+                <entry key="201" value-ref="ind" />
+                <entry key="303" value="America" />
+                <entry key="401" value="Russia" />
+            </map>
+        </property>
+    </bean>
+
+    <bean id="ind" class="com.project.entity.Indonesia">
+        <property name="president" value="MrJokoWidodo" />
+        <property name="vicePresident" value="MrJusufKalla" />
+        <property name="language" value="Bahasa" />
+        <property name="capital" value="Jakarta" />
+        <property name="currency" value="Rupiah" />
+    </bean>
+
+    <!-- Props -->
+    <!-- helps in injecting a name-value of pairs where the name and value are both Strings-->
+    <bean id  ="places2" class="com.project.entity.Places">
+        <property name="points">
+            <props>
+                <prop key="China">Beijing</prop>
+                <prop key="Indonesia">Jakarta</prop>
+                <prop key="America">NewYork</prop>
+                <prop key="Russia">Moscow</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>

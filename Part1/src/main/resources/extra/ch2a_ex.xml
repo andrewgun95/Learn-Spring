@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- person1 bean definition will instantiate using getInstance method (not by default new Person(...)) -->
+    <bean id="person1" class="com.project.entity.Person" factory-method="getInstance">
+        <constructor-arg name="name" value="Andrew" />
+        <constructor-arg name="age" value="21" />
+        <constructor-arg name="gender" value="male" />
+    </bean>
+
+    <!-- person2 bean definition will instantiate using create method in personFactory bean-->
+    <bean id="person2" class="com.project.entity.Person" factory-bean="personFactory" factory-method="create">
+        <constructor-arg name="name" value="Jacob" />
+        <constructor-arg name="age" value="24" />
+        <constructor-arg name="gender" value="male" />
+    </bean>
+
+    <bean id="personFactory" class="com.project.learn.extra.PersonFactory" />
+</beans>

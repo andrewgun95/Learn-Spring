@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- REUSABLE BEAN DEFINITION -->
+    <bean id="job1" class="com.project.entity.Job">
+        <property name="id" value="JOB001"/>
+        <property name="title" value="PHP Developer"/>
+        <property name="minSalary" value="3500000"/>
+        <property name="maxSalary" value="5000000"/>
+    </bean>
+
+    <bean id="department1" class="com.project.entity.Department">
+        <property name="id" value="DEP001"/>
+        <property name="name" value="IT Department"/>
+        <property name="location" value="Bandung"/>
+    </bean>
+
+    <!-- TEMPLATE FOR "TOM EMPLOYEE" BEAN DEFINITION -->
+    <bean id="tom_employee" class="com.project.entity.Employee" abstract="true"> <!-- abstract make this bean will not be created-->
+        <property name="manager">
+            <bean class="com.project.entity.Employee">
+                <property name="id" value="EMP001"/>
+                <property name="name" value="Tom"/>
+                <property name="phone" value="08812446784"/>
+                <property name="email" value="tom.phillip@gmail.com"/>
+                <property name="job" ref="job1" />
+                <property name="department" ref="department1" />
+            </bean>
+        </property>
+        <property name="job" ref="job1" />
+        <property name="department" ref="department1" />
+    </bean>
+
+    <!-- BE CAREFUL when doing INHERITANCE ! -->
+    <!-- * if child define the same as name property in the parent, will override that property -->
+
+    <bean id="employee1" class="com.project.entity.Employee" parent="tom_employee">
+        <property name="id" value="EMP002"/>
+        <property name="name" value="Andrew"/>
+        <property name="phone" value="089655454395"/>
+        <property name="email" value="andreasgunawan@ymail.com"/>
+    </bean>
+
+    <bean id="employee2" class="com.project.entity.Employee" parent="tom_employee">
+        <property name="id" value="EMP003"/>
+        <property name="name" value="Steve"/>
+        <property name="phone" value="088445436412"/>
+        <property name="email" value="steve.martin90@gmail.com"/>
+    </bean>
+
+    <bean id="team1_support" class="com.project.entity.Team">
+        <property name="member">
+            <list>
+                <value>George</value>
+                <value>Peter</value>
+                <value>Smith</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="team1" class="com.project.entity.Team" parent="team1_support">
+        <property name="member">
+            <list merge="true"> <!-- when not use merge, will override parent property -->
+                <value>Matt</value>
+                <value>Felix</value>
+                <value>Erick</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>
