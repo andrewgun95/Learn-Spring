@@ -2,6 +2,8 @@ package com.project.model;
 
 // every object created by Offer class represent one row in the offers table
 
+import java.util.Random;
+
 public class Offer {
 
     private int id;
@@ -12,7 +14,8 @@ public class Offer {
     public Offer() {
     }
 
-    public Offer(String name, String email, String text) { // do need id, cause auto increment
+    public Offer(String name, String email, String text) { // do need id, cause auto generated
+        this.id = new Random().nextInt(10);
         this.name = name;
         this.email = email;
         this.text = text;

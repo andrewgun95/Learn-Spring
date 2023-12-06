@@ -25,7 +25,7 @@
         <!-- #{object.property1?.property2} -->
         <!-- ? sign mean if property1 is null, return property1 and will not access property2 -->
         <property name="say" value="#{speak.getRandomText() + ', length : ' + speak.randomText?.length()}"/>
-        <!-- alternative, shortcut called by the name of properties -->
+        <!-- alternative, shortcut called by the name of properties instead of calling the method -->
         <!--<property name="say" value="#{speak1.randomText}" />-->
     </bean>
 

@@ -113,12 +113,17 @@ public class OffersDAO {
         return jdbc.update("delete from offers where id = :param1", params) > 0; // returning numb of rows being affected
     }
 
+    public boolean deleteAll() {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        return jdbc.update("delete from offers", params) > 0;
+    }
+
     // create
     public boolean create(Offer offer) {
         // getting placeholder value from bean
         BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(offer); // creating set of parameters source based of bean property
         // placeholder must have same name with bean property !
-        return jdbc.update("insert into offers(name, email, text) values(:name, :email, :text)", params) == 1; // only one row affected
+        return jdbc.update("insert into offers(id, name, email, text) values(:id, :name, :email, :text)", params) == 1; // only one row affected
     }
 
     // update
@@ -129,21 +134,21 @@ public class OffersDAO {
     }
 
     // using batch
-    // * just like PrepareStatement, defined only one, you can executeQuery over and over again with different value
+    // * just like PrepareStatement, defined SQL only one, you can executeQuery over and over again with different value
     public int create(List<Offer> offers) {
         // MapSqlParameterSource[] params = new MapSqlParameterSource[offers.size()];
         // for (int i = 0; i < offers.size(); i++) {
         // params[i] = new MapSqlParameterSource();
-        // params[i].addValue("param1", offers.get(i).getName());
-        // params[i].addValue("param2", offers.get(i).getEmail());
-        // params[i].addValue("param3", offers.get(i).getText());
+        // params[i].addValue("name", offers.get(i).getName());
+        // params[i].addValue("email", offers.get(i).getEmail());
+        // params[i].addValue("text", offers.get(i).getText());
         // }
 
         // shorthand
         SqlParameterSource[] params = SqlParameterSourceUtils.createBatch(offers.toArray());
         // * interface SqlParameterSource is parent of BeanPropertySqlParameterSource and MapSqlParameterSource
 
-        return jdbc.batchUpdate("insert into offers(name, email, text) values(:name, :email, :text)", params).length; // returning array of int, which for each value is numb of rows affected by each update
+        return jdbc.batchUpdate("insert into offers(id, name, email, text) values(:id, :name, :email, :text)", params).length; // returning array of int, which for each value is numb of rows affected by each update
     }
 
     // Transaction
