@@ -38,7 +38,7 @@
     // obj C depend on Logger
     //
     // * in Design, object Logger is the most important, cause every object depend on Logger
-    // * Logger is cross cutting objects - not part of business logic, but needed !
+    // * Logger is *CROSS CUTTING* objects - not part of business logic, but needed !
 
     // Common cross cutting objects :
     // A. Logging
@@ -67,8 +67,12 @@
     //      write aspect configuration, specify which object for this aspect apply to
     // }
 
-    // Aspect wrapping around methods
-    // -----> aspect code -> target methods -> aspect code ----->
+    // Aspect *wrapping around methods*
+
+    // method called
+    // |
+    // v
+    // -----> aspect code -> target method -> aspect code ----->
     // A. Before target methods
     // B. After target methods
 
